@@ -14,7 +14,7 @@ console.log("#1: ", getUserNames(users));
 //Задание 2 Получить массив объектов пользователей по цвету глаз (поле eyeColor).
 // //////////////////////////////////////////////////////////
 function getUsersWithEyeColor(arr, color) {
-  return arr.filter((user) => user.eyeColor.includes(color));
+  return arr.filter((user) => user.eyeColor === color);
 }
 
 console.log("#2: ", getUsersWithEyeColor(users, "blue"));
@@ -24,11 +24,7 @@ console.log("#2: ", getUsersWithEyeColor(users, "blue"));
 // Задание 3 Получить массив имен пользователей по полу (поле gender).
 //////////////////////////////////////////////////////////
 function getUsersWithGender(arr, gender) {
-  return arr
-    .filter((user) => {
-      if (user.gender === gender) return user.name;
-    })
-    .map((user) => user.name);
+  return arr.filter((user) => user.gender === gender).map((user) => user.name);
 }
 
 console.log("#3: ", getUsersWithGender(users, "male"));
@@ -47,7 +43,7 @@ console.log("#4: ", getInactiveUsers(users)); // [объект Moore Hensley, о
 // Задание 5 Получить пользоваля (не массив) по email (поле email, он уникальный).
 //////////////////////////////////////////////////////////
 function getUserWithEmail(objects, email) {
-  return objects.filter((object) => object.email.includes(email));
+  return objects.find((object) => object.email === email);
 }
 
 console.log("#5: ", getUserWithEmail(users, "shereeanthony@kog.com")); // {объект пользователя Sheree Anthony}
@@ -90,20 +86,7 @@ console.log("#8: ", getUsersWithFriend(users, "Goldie Gentry")); // [ 'Elma Head
 //////////////////////////////////////////////////////////
 function getNamesSortedByFriendsCount(objects) {
   return [...objects]
-    .sort((a, b) =>
-      //  -1 <
-      {
-        if ([...a.friends].length < [...b.friends].length) {
-          return -1;
-        }
-        // 1 >
-        if ([...a.friends].length > [...b.friends].length) {
-          return 1;
-        }
-        // 0 =
-        return 0;
-      }
-    )
+    .sort((a, b) => a.friends.length - b.friends.length)
     .map((object) => object.name);
 }
 
